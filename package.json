@@ -1,0 +1,23 @@
+{
+  "name": "facebook-api",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node .dist/main.js",
+    "dev": "nodemon",
+    "build": "babel src/ --out-dir .dist/ --extensions \".js\""
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.16.8",
+    "@babel/core": "^7.16.12",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.11",
+    "nodemon": "^2.0.15",
+    "prisma": "^3.9.2"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.9.2",
+    "express": "^4.17.3",
+    "http-errors": "^2.0.0",
+    "jsonwebtoken": "^8.5.1"
+  }
+}
