@@ -1,12 +1,12 @@
 import jwt from 'jsonwebtoken';
 import { HttpException, HttpStatus } from '../errors/httpException.error';
 
-const jwtMiddleware = (request, response, next) => {
-  const { authorization: token } = request.headers;
+const jwtMiddleware = (req, res, next) => {
+  const { authorization: token } = req.headers;
   
   try {
     const payload = jwt.verify(token, 'SECRET');
-    request.user = payload;
+    req.user = payload;
 
     next();
   } catch(error) {
