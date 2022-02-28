@@ -4,7 +4,7 @@ import authentication from "./authentication.route";
 import users from "./users.route";
 import posts from "./posts.route";
 // Middlewares
-import  jwt  from '../../middlewares/jwt.middleware';
+import jwt from '../../middlewares/jwt.middleware';
 const api = Router();
 
 api.use("/authentication", authentication);
