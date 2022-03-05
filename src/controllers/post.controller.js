@@ -1,42 +1,48 @@
 import * as PostModel from '../models/post.model';
+import { HttpException, HttpStatus } from '../errors/httpException.error';
 
 export const getById = async (req, res) => {
   const { id } = req.params;
 
   const post = await PostModel.getById(Number(id));
-  if (!post) {
+  if (!post)
     throw new HttpException('Unauthorized', HttpStatus.NOT_FOUND);
-  }
-
-  res.status(200).json({ post });
+  else
+    res.status(200).json({ post });
 }
 
-export const getPosts = async (_req, res) => {
-  res.status(200).json({
-    data: {
-      posts: await PostModel.getPosts(),
-    },
-  });
+export const getAllPosts = async (_req, res) => {
+  const posts = await PostModel.getPosts()
+
+  res.status(200).json({ posts });
 }
 
 export const createOne = async (req, res) => {
-  const { message, authorId } = req.body;
+  const { message } = req.body;
+  const authorId = req.user.id
 
-  const post = await PostModel.createOne({ message: message, authorId: authorId });
+  if (message == undefined || message == '')
+    throw new HttpException('NO CONTENT', HttpStatus.NOT_FOUND);
+  else {
+    const post = await PostModel.createOne({ message: message, authorId: authorId });
+    res.status(201).json({ post });
+  }
 
-  res.status(201).json({ post });
 }
 
 export const updateOneById = async (req, res) => {
   const { id } = req.params;
   const { message } = req.body;
 
-  const post = await PostModel.updateOneById({
-    id: Number(id),
-    message
-  });
+  if (message == undefined || message == '')
+    throw new HttpException('NO CONTENT', HttpStatus.NOT_FOUND);
 
-  res.json({ post });
+  const post = await PostModel.updateOneById({ id: Number(id), message });
+
+  if(!post)
+    throw new HttpException('Unauthorized', HttpStatus.NOT_FOUND);
+
+  res.status(200).json({ post });
 }
 
 export const deleteById = async (req, res) => {
@@ -44,8 +50,8 @@ export const deleteById = async (req, res) => {
 
   const post = await PostModel.deleteById(Number(id));
 
-  // if (!post) {
-  //   throw new HttpException('Unauthorized', HttpStatus.NOT_FOUND);
-  // }
-  res.status(204)
+  if (!post) 
+    throw new HttpException('Unauthorized', HttpStatus.NOT_FOUND);
+  
+    res.status(200).json({ post });
 }

@@ -11,7 +11,7 @@ export const findUser = ({ email, password }, select) => {
   });
 }
 
-export const createUser = ({ email, password }) => {
+export const createUserAndProfile = ({ email, password }) => {
   return prisma.user.create({
     data: {
       email,

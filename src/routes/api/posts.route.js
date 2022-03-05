@@ -5,7 +5,7 @@ const api = Router();
 
 api.post("/", PostController.createOne);
 api.get("/:id", PostController.getById);
-api.get("/", PostController.getPosts);
+api.get("/", PostController.getAllPosts);
 api.patch("/:id", PostController.updateOneById);
 api.delete("/:id", PostController.deleteById);
 
